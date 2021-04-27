@@ -14,41 +14,82 @@
         <vm:MainPageViewModel x:Name="ViewModel" />
     </Page.DataContext>
     <Page.Resources>
-        <CollectionViewSource x:Key="TestMoviesViewSource"
-                              IsSourceGrouped="True"
-                              Source="{Binding TestMovies}"
-                              ItemsPath="TestMovies" />
+        <CollectionViewSource x:Key="MoviesViewSource"
+                              IsSourceGrouped="False"
+                              Source="{Binding Movies}"
+                              ItemsPath="Movies" />
     </Page.Resources>
     <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <controls:PageHeader x:Name="pageHeader"
-                             Content="Main Page"
-                             RelativePanel.AlignLeftWithPanel="True"
-                             RelativePanel.AlignRightWithPanel="True"
-                             RelativePanel.AlignTopWithPanel="True" />
+            <controls:PageHeader x:Name="pageHeader"
+                                 Content="Filmek"
+                                 Grid.Row="0"
+                                 Grid.ColumnSpan="2"
+                                 RelativePanel.AlignLeftWithPanel="True"
+                                 RelativePanel.AlignRightWithPanel="True"
+                                 RelativePanel.AlignTopWithPanel="True" />
+            
+            <TextBox PlaceholderText="Keresés filmre, színészre, műfajra"
+                     Grid.Row="1" 
+                     Grid.Column="0"
+                     MinWidth="250"
+                     Height="35"
+                     Margin="10 5 10 5"
+                     >
+            </TextBox>
+            <Button Content="SEARCH"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Height="35"
+                    Margin="10 5 10 5">
+            </Button>
 
-        <TextBlock x:Name="mainTextBlock"
-                   Margin="16,12,0,0"
-                   RelativePanel.AlignLeftWithPanel="True"
-                   RelativePanel.Below="pageHeader"
-                   Text="{Binding Movie}" />
-        <GridView Grid.Row="1"
-                  Padding="18"
-                  ItemsSource="{Binding Source={StaticResource TestMoviesViewSource}}"
-                  IsItemClickEnabled="True">
-            <GridView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Title}"
-                                       Margin="-12,0,0,0" />
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </GridView.GroupStyle>
-        </GridView>
-
-
+            <GridView Grid.Row="2"
+                      Grid.ColumnSpan="2"
+                      ItemsSource="{Binding Source={StaticResource MoviesViewSource}}"
+                      IsItemClickEnabled="True"
+                      ItemClick="Movies_OnItemClick">
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="200"
+                              Height="300"
+                              Margin="5"
+                              >
+                            <Image Source="{Binding poster_path}"
+                                   Stretch="Uniform"
+                                   VerticalAlignment="Center" />
+                            <Border VerticalAlignment="Bottom"
+                                    Background="#AA000000">
+                                <TextBlock Text="{Binding Title}"
+                                           Margin="12"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+                <GridView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Title}"
+                                           Margin="-12,0,0,0" />
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </GridView.GroupStyle>
+            </GridView>
+        </Grid>
     </RelativePanel>
 
 </Page>

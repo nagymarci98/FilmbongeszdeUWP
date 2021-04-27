@@ -38,7 +38,7 @@ namespace Filmbongeszde.Models
     public class Movie
     {
         public bool adult { get; set; }
-        public string backdrop_path { get; set; }
+        public string backdrop_pposath { get; set; }
         public object belongs_to_collection { get; set; }
         public int budget { get; set; }
         public List<Genre> genres { get; set; }

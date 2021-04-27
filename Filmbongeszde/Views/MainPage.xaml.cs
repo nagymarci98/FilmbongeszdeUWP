@@ -10,5 +10,10 @@ namespace Filmbongeszde.Views
             InitializeComponent();
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
         }
+
+        private void Movies_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }
