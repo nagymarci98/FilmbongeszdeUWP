@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Filmbongeszde.Models;
+using System;
 using Windows.UI.Xaml.Controls;
 
 namespace Filmbongeszde.Views
@@ -13,7 +14,8 @@ namespace Filmbongeszde.Views
 
         private void Movies_OnItemClick(object sender, ItemClickEventArgs e)
         {
-
+            var movie = (Movie)e.ClickedItem;
+            ViewModel.NavigateToDetails(movie.id);
         }
     }
 }

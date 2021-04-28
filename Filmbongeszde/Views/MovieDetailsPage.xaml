@@ -5,15 +5,26 @@
     xmlns:local="using:Filmbongeszde.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:vm="using:Filmbongeszde.ViewModels"
-      mc:Ignorable="d"
+    
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:controls="using:Template10.Controls"
+     
+    xmlns:vm="using:Filmbongeszde.ViewModels"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     
     <Page.Resources>
-        <vm:MovieDetailsPageViewModel />
+        <vm:MovieDetailsPageViewModel x:Name="MovieDetailsViewModel"/>
     </Page.Resources>
     
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
     </Grid>
 </Page>

@@ -38,6 +38,7 @@ namespace Filmbongeszde.ViewModels
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
+            this.Movies.Clear();
             var service = new MovieServices();
             var topRatedMovies = await service.GetTopRatedMoviesAsync(1);
             foreach (var item in topRatedMovies.movies)
