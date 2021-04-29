@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
-      xmlns:controls="using:Template10.Controls"
+      xmlns:c="using:Template10.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Filmbongeszde.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -22,7 +22,7 @@
     <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="40" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -31,14 +31,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <controls:PageHeader x:Name="pageHeader"
-                                 Content="Filmek"
-                                 Grid.Row="0"
-                                 Grid.ColumnSpan="2"
-                                 RelativePanel.AlignLeftWithPanel="True"
-                                 RelativePanel.AlignRightWithPanel="True"
-                                 RelativePanel.AlignTopWithPanel="True" />
-            
+            <c:PageHeader Grid.Row="0"
+                          Grid.ColumnSpan="2"
+                          Content="Filmek" />
+
             <TextBox PlaceholderText="Keresés filmre, színészre, műfajra"
                      Grid.Row="1" 
                      Grid.Column="0"

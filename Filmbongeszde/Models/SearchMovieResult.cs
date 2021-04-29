@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Filmbongeszde.Models
 {
 
-    public class SearchQueryResult
+    public class SearchMovieResult
     {
         public int page { get; set; }
 

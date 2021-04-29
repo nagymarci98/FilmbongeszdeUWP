@@ -3,28 +3,101 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Filmbongeszde.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    
+     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:controls="using:Template10.Controls"
+    xmlns:c="using:Template10.Controls"
      
     xmlns:vm="using:Filmbongeszde.ViewModels"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     
     <Page.Resources>
         <vm:MovieDetailsPageViewModel x:Name="MovieDetailsViewModel"/>
+        
     </Page.Resources>
-    
-    <Grid>
+    <Page.DataContext>
+        <vm:MovieDetailsPageViewModel />
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="0.25*"></RowDefinition>
+            <RowDefinition Height="0.25*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40"></ColumnDefinition>
-            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="0.25*"></ColumnDefinition>
+            <ColumnDefinition Width="0.375*"></ColumnDefinition>
+            <ColumnDefinition Width="0.375*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <c:PageHeader Grid.Row="0"
+                      Grid.ColumnSpan="4"
+                      Content="{Binding Movie.Title}" />        <Image Source="{Binding Movie.poster_path}"
+               Stretch="Uniform"
+               Grid.Column="1"
+               Grid.Row="1"
+               Width="300"
+               Margin="0 15 0 0">
+        </Image>
+        <StackPanel Orientation="Vertical"
+                    Padding="5 5 15 5"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="0 15 0 0">
+            <TextBlock Text="{Binding Movie.Title}"
+                       FontSize="28"
+                       TextWrapping="Wrap"
+                       Margin="0 0 0 15">
+            </TextBlock>
+            <TextBlock Text="Lerás:"
+                       FontSize="20"
+                       TextWrapping="Wrap"
+                       Margin="0 0 0 5">
+            </TextBlock>
+            <TextBlock Text="{Binding Movie.overview}"
+                       FontSize="18"
+                       TextWrapping="Wrap"
+                       Margin="0 0 0 10">
+            </TextBlock>
+            <HyperlinkButton Content="{Binding Movie.imdb_id}"
+                             NavigateUri="{Binding Movie.imdb_id}"
+                             FontSize="20"
+                             Margin="0 0 0 10">
+            </HyperlinkButton>
+            <TextBlock Text="{Binding Movie.release_date}"
+                       FontSize="20"
+                       Margin="0 0 0 10">
+            </TextBlock>
+            <TextBlock Text="{Binding MovieDuriation}"
+                       FontSize="20"></TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="1"
+                    Padding="5"
+                    Grid.Column="3"
+                    Margin="0 15 0 0">
+            <TextBlock Text="{Binding Rating}"
+                       FontSize="20"
+                       TextWrapping="Wrap"
+                       Margin="0 50 0 10">
+            </TextBlock>
+            <TextBlock Text="{Binding Genres}"
+                       FontSize="20"
+                       TextWrapping="Wrap"
+                       Margin="0 0 0 10"></TextBlock>
+            <TextBlock Text="{Binding Views}"
+                       FontSize="20"
+                       Margin="0 0 0 10">
+            </TextBlock>
+            <TextBlock Text="{Binding Revenue}"
+                       FontSize="20"
+                       Margin="0 0 0 10"></TextBlock>
+            <TextBlock Text="{Binding Budget}"
+                       FontSize="20"></TextBlock>
+        </StackPanel>
+       
+
     </Grid>
 </Page>
