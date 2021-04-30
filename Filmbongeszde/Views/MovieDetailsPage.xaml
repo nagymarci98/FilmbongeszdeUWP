@@ -129,11 +129,11 @@
                                     Background="#AA000000">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Text="{Binding character}"
-                                               Margin="8"
+                                               Margin="4"
                                                Foreground="White">
                                     </TextBlock>
                                     <TextBlock Text="{Binding name}"
-                                               Margin="8"
+                                               Margin="4"
                                                Foreground="White">
                                     </TextBlock>
                                 </StackPanel>

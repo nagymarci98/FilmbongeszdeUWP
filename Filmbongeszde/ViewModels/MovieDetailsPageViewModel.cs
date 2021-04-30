@@ -17,6 +17,7 @@ namespace Filmbongeszde.ViewModels
     public class MovieDetailsPageViewModel : ViewModelBase
     {
         #region Properties
+      
         private ObservableCollection<Cast> actors = new ObservableCollection<Cast>();
         public ObservableCollection<Cast> Actors
         {
@@ -131,9 +132,18 @@ namespace Filmbongeszde.ViewModels
             if (movie.genres.Count > 1)
             {
                 this.Genres = "Műfajok: ";
+                int counter = 0;
                 foreach (var genre in movie.genres)
                 {
-                    this.Genres = this.Genres+" "+genre.name;
+                    if(counter > 0)
+                    {
+                        this.Genres = this.Genres + ", " + genre.name;
+                    }
+                    else
+                    {
+                        this.Genres = this.Genres + " " + genre.name;
+                    }
+                    counter++;
                 }
             }
             else{

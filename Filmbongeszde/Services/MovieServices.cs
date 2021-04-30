@@ -17,9 +17,9 @@ namespace Filmbongeszde.Services
         {
             return await GetAsync<SearchMovieResult>(new Uri(serverUrl, "movie/top_rated"+apiKey+"&language="+languange+"&page="+pageNumber));
         }
-        public async Task<SearchMovieResult> GetMoviesBySearchAsync(string keyword, string language = "hu-HU")
+        public async Task<SearchMovieResult> GetMoviesBySearchAsync(string keyword,int pageNumner, string language = "hu-HU")
         {
-            return await GetAsync<SearchMovieResult>(new Uri(serverUrl,"search/movie"+apiKey+"&language="+language+"&query="+keyword+"&page=1&include_adult=false"));
+            return await GetAsync<SearchMovieResult>(new Uri(serverUrl,"search/movie"+apiKey+"&language="+language+"&query="+keyword+"&page="+pageNumner+"&include_adult=false"));
         }
         public async Task<SearchMovieResult> GetSimiliarMoviesAsync(int movieId, string language = "hu-HU")
         {
@@ -34,6 +34,10 @@ namespace Filmbongeszde.Services
         public async Task<Movie> GetMovieByIdAsync(int Id, string language= "hu-HU")
         {
             return await GetAsync<Movie>(new Uri(serverUrl, "movie/"+Id.ToString()+apiKey+"&language="+language));
+        }
+        public async Task<ListOfGenres> GetAllGenreAsync(string language = "hu-HU")
+        {
+            return await GetAsync<ListOfGenres>(new Uri("https://api.themoviedb.org/3/genre/movie/list?api_key=2b94e2a30de7a70832fae1f0d6193472&language=en-U"));
         }
         private async Task<T> GetAsync<T>(Uri uri)
         {

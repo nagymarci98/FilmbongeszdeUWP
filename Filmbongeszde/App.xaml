@@ -7,11 +7,11 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles\Custom.xaml" />
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" x:Name="winui" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!--  custom resources  -->
-
         </ResourceDictionary>
+        
     </Application.Resources>
 
 
