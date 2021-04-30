@@ -21,193 +21,194 @@
     <Page.DataContext>
         <vm:MovieDetailsPageViewModel x:Name="MovieDetailsViewModel"/>
     </Page.DataContext>
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="0.5*"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="0.25*"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="0.25*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"></ColumnDefinition>
-            <ColumnDefinition Width="0.25*"></ColumnDefinition>
-            <ColumnDefinition Width="0.375*"></ColumnDefinition>
-            <ColumnDefinition Width="0.375*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <c:PageHeader Grid.Row="0"
-                      Grid.ColumnSpan="4"
-                      Content="{Binding Movie.Title}" />
-        <Image Source="{Binding Movie.poster_path}"
-               Stretch="Uniform"
-               Grid.Column="1"
-               Grid.Row="1"
-               Width="300"
-               Margin="0 15 0 0">
-        </Image>
-        <StackPanel Orientation="Vertical"
-                    Padding="5 5 15 5"
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    Margin="0 15 0 0">
-            <TextBlock Text="{Binding Movie.Title}"
+    <ScrollViewer>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="0.5*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="0.25*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="0.25*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                <ColumnDefinition Width="0.375*"></ColumnDefinition>
+                <ColumnDefinition Width="0.375*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <c:PageHeader Grid.Row="0"
+                          Grid.ColumnSpan="4"
+                          Content="{Binding Movie.Title}" />
+            <Image Source="{Binding Movie.poster_path}"
+                   Stretch="Uniform"
+                   Grid.Column="1"
+                   Grid.Row="1"
+                   Width="300"
+                   Margin="0 15 0 0">
+            </Image>
+            <StackPanel Orientation="Vertical"
+                        Padding="5 5 15 5"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Margin="0 15 0 0">
+                <TextBlock Text="{Binding Movie.Title}"
+                           FontSize="28"
+                           TextWrapping="Wrap"
+                           Margin="0 0 0 15">
+                </TextBlock>
+                <ScrollViewer
+                     MaxHeight="350"
+                     VerticalScrollBarVisibility="Visible">
+                    <TextBlock Text="{Binding Movie.overview}"
+                           FontSize="18"
+                           TextWrapping="Wrap"
+                           Margin="0 0 0 10">
+                </TextBlock>
+                </ScrollViewer>
+                
+                <HyperlinkButton Content="{Binding Movie.imdb_id}"
+                                 NavigateUri="{Binding Movie.imdb_id}"
+                                 FontSize="20"
+                                 Margin="0 0 0 10">
+                </HyperlinkButton>
+                <TextBlock Text="{Binding Movie.release_date}"
+                           FontSize="20"
+                           Margin="0 0 0 10">
+                </TextBlock>
+                <TextBlock Text="{Binding MovieDuriation}"
+                           FontSize="20"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                        Grid.Row="1"
+                        Padding="5"
+                        Grid.Column="3"
+                        Margin="0 15 0 0">
+                <TextBlock Text="{Binding Rating}"
+                           FontSize="20"
+                           TextWrapping="Wrap"
+                           Margin="0 50 0 10">
+                </TextBlock>
+                <TextBlock Text="{Binding Genres}"
+                           FontSize="20"
+                           TextWrapping="Wrap"
+                           Margin="0 0 0 10"></TextBlock>
+                <TextBlock Text="{Binding Views}"
+                           FontSize="20"
+                           Margin="0 0 0 10">
+                </TextBlock>
+                <TextBlock Text="{Binding Revenue}"
+                           FontSize="20"
+                           Margin="0 0 0 10"></TextBlock>
+                <TextBlock Text="{Binding Budget}"
+                           FontSize="20"></TextBlock>
+            </StackPanel>
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       Text="Szereplők"
                        FontSize="28"
-                       TextWrapping="Wrap"
-                       Margin="0 0 0 15">
-            </TextBlock>
-            <TextBlock Text="Lerás:"
-                       FontSize="20"
-                       TextWrapping="Wrap"
-                       Margin="0 0 0 5">
-            </TextBlock>
-            <TextBlock Text="{Binding Movie.overview}"
-                       FontSize="18"
-                       TextWrapping="Wrap"
-                       Margin="0 0 0 10">
-            </TextBlock>
-            <HyperlinkButton Content="{Binding Movie.imdb_id}"
-                             NavigateUri="{Binding Movie.imdb_id}"
-                             FontSize="20"
-                             Margin="0 0 0 10">
-            </HyperlinkButton>
-            <TextBlock Text="{Binding Movie.release_date}"
-                       FontSize="20"
-                       Margin="0 0 0 10">
-            </TextBlock>
-            <TextBlock Text="{Binding MovieDuriation}"
-                       FontSize="20"></TextBlock>
-            <TextBlock Text="{Binding Movie.id}"
-                       FontSize="20"></TextBlock>
-        </StackPanel>
-        <StackPanel Orientation="Vertical"
-                    Grid.Row="1"
-                    Padding="5"
-                    Grid.Column="3"
-                    Margin="0 15 0 0">
-            <TextBlock Text="{Binding Rating}"
-                       FontSize="20"
-                       TextWrapping="Wrap"
-                       Margin="0 50 0 10">
-            </TextBlock>
-            <TextBlock Text="{Binding Genres}"
-                       FontSize="20"
-                       TextWrapping="Wrap"
                        Margin="0 0 0 10"></TextBlock>
-            <TextBlock Text="{Binding Views}"
-                       FontSize="20"
-                       Margin="0 0 0 10">
-            </TextBlock>
-            <TextBlock Text="{Binding Revenue}"
-                       FontSize="20"
+            <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollMode="Enabled"
+                      ScrollViewer.VerticalScrollMode="Disabled"
+                      IsItemClickEnabled="True"
+                      Grid.Column="0"
+                      Grid.Row="3"
+                      Grid.ColumnSpan="4"
+                      ItemClick="ListView_ItemClick"
+                      ItemsSource="{Binding Actors}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Image Source="{Binding profile_path}"
+                                   Stretch="UniformToFill"
+                                   VerticalAlignment="Center"
+                                   Width="100"></Image>
+                            <Border VerticalAlignment="Bottom"
+                                    Background="#AA000000">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding character}"
+                                               Margin="8"
+                                               Foreground="White">
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding name}"
+                                               Margin="8"
+                                               Foreground="White">
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding original_name}"
+                                           Margin="-8,0,0,0" />
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+
+            <TextBlock Grid.Row="4"
+                       Grid.Column="1"
+                       Text="{Binding SimiliarMoviesText}"
+                       FontSize="28"
                        Margin="0 0 0 10"></TextBlock>
-            <TextBlock Text="{Binding Budget}"
-                       FontSize="20"></TextBlock>
-        </StackPanel>
-        <TextBlock Grid.Row="2"
-                   Grid.Column="1"
-                   Text="Szereplők"
-                   FontSize="28"
-                   Margin="0 0 0 10"></TextBlock>
-        <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  ScrollViewer.HorizontalScrollMode="Enabled"
-                  ScrollViewer.VerticalScrollMode="Disabled"
-                  IsItemClickEnabled="True"
-                  Grid.Column="0"
-                  Grid.Row="3"
-                  Grid.ColumnSpan="4"
-                  ItemClick="ListView_ItemClick"
-                  ItemsSource="{Binding Actors}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Image Source="{Binding profile_path}"
-                               Stretch="UniformToFill"
-                               VerticalAlignment="Center"></Image>
-                        <Border VerticalAlignment="Bottom"
-                                Background="#AA000000">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="{Binding character}"
-                                           Margin="8"
+            <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollMode="Enabled"
+                      ScrollViewer.VerticalScrollMode="Disabled"
+                      IsItemClickEnabled="True"
+                      Grid.Column="0"
+                      Grid.Row="5"
+                      Grid.ColumnSpan="4"
+                      Margin="0 20"
+                      ItemClick="ListView_ItemClick_1"
+                      ItemsSource="{Binding SimiliarMovies}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Image Source="{Binding poster_path}"
+                                   Stretch="UniformToFill"
+                                   VerticalAlignment="Center"
+                                   Width="100"></Image>
+                            <Border VerticalAlignment="Bottom"
+                                    Background="#AA000000">
+                                <TextBlock Text="{Binding Title}"
+                                           Margin="12"
                                            Foreground="White">
                                 </TextBlock>
-                                <TextBlock Text="{Binding name}"
-                                           Margin="8"
-                                           Foreground="White">
-                                </TextBlock>
-                            </StackPanel>
-                        </Border>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding original_name}"
-                                       Margin="-8,0,0,0" />
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-        </ListView>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Title}"
+                                           Margin="-12,0,0,0" />
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
 
-
-        <TextBlock Grid.Row="4"
-                   Grid.Column="1"
-                   Text="{Binding SimiliarMoviesText}"
-                   FontSize="28"
-                   Margin="0 0 0 10"></TextBlock>
-        <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  ScrollViewer.HorizontalScrollMode="Enabled"
-                  ScrollViewer.VerticalScrollMode="Disabled"
-                  IsItemClickEnabled="True"
-                  Grid.Column="0"
-                  Grid.Row="5"
-                  Grid.ColumnSpan="4"
-                  Margin="0 20"
-                  ItemClick="ListView_ItemClick_1"
-                  ItemsSource="{Binding SimiliarMovies}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Image Source="{Binding poster_path}"
-                               Stretch="UniformToFill"
-                               VerticalAlignment="Center"></Image>
-                        <Border VerticalAlignment="Bottom"
-                                Background="#AA000000">
-                            <TextBlock Text="{Binding Title}"
-                                       Margin="12"
-                                       Foreground="White">
-                            </TextBlock>
-                        </Border>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Title}"
-                                       Margin="-12,0,0,0" />
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-        </ListView>
-
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </Page>

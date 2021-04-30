@@ -73,6 +73,8 @@ namespace Filmbongeszde.ViewModels
             get { return similiarMoviesText; }
             set { Set(ref similiarMoviesText ,value); }
         }
+        
+
 
         #endregion
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
@@ -85,6 +87,7 @@ namespace Filmbongeszde.ViewModels
             this.Movie = movieTemp;
             //Get the credits of the movie
             this.Actors.Clear();
+            this.SimiliarMovies.Clear();
             var credits = await movieService.GetMovieCredits(movieId);
             foreach (var item in credits.cast)
             {
@@ -146,5 +149,6 @@ namespace Filmbongeszde.ViewModels
         {
             NavigationService.Navigate(typeof(MovieDetailsPage), movieId);
         }
+
     }
 }

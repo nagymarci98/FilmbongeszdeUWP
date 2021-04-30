@@ -34,21 +34,34 @@
             <c:PageHeader Grid.Row="0"
                           Grid.ColumnSpan="2"
                           Content="Filmek" />
-
-            <TextBox PlaceholderText="Keresés filmre, színészre, műfajra"
-                     Grid.Row="1" 
-                     Grid.Column="0"
-                     MinWidth="250"
-                     Height="35"
-                     Margin="10 5 10 5">
-            </TextBox>
-            <Button Content="SEARCH"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Height="35"
-                    Margin="10 5 10 5">
-            </Button>
-
+            
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="10 5 10 5">
+                <TextBox PlaceholderText="Keresés filmre, színészre, műfajra"
+                         MinWidth="250"
+                         Height="35"
+                         x:Name="searchBox"
+                         Margin="0 0 5 0"
+                         TextChanged="searchBox_TextChanged">
+                </TextBox>
+                <Button Content="SEARCH"
+                        Height="35"
+                        Margin="0 0 5 0"
+                        Click="Button_Click">
+                </Button>
+                <ComboBox PlaceholderText="Műfaj"
+                          Width="200"
+                          Margin="0 0 5 0"
+                          Height="35">
+                    <x:String>Akció</x:String>
+                    <x:String>Green</x:String>
+                    <x:String>Red</x:String>
+                    <x:String>Yellow</x:String>
+                </ComboBox>
+            </StackPanel>
             <GridView Grid.Row="2"
                       Grid.ColumnSpan="2"
                       ItemsSource="{Binding Source={StaticResource MoviesViewSource}}"
@@ -58,8 +71,7 @@
                     <DataTemplate>
                         <Grid Width="200"
                               Height="300"
-                              Margin="5"
-                              >
+                              Margin="5">
                             <Image Source="{Binding poster_path}"
                                    Stretch="Uniform"
                                    VerticalAlignment="Center" />

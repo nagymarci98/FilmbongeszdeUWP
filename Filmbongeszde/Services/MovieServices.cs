@@ -28,12 +28,12 @@ namespace Filmbongeszde.Services
         }
         public async Task<MovieCredits> GetMovieCredits(int movieId, string language = "hu-HU")
         {
-            return await GetAsync<MovieCredits>(new Uri(serverUrl, "movie/" + movieId.ToString() +"/credits"+apiKey+"&"+language));
+            return await GetAsync<MovieCredits>(new Uri(serverUrl, "movie/" + movieId.ToString() +"/credits"+apiKey+"&language="+language));
         }
 
         public async Task<Movie> GetMovieByIdAsync(int Id, string language= "hu-HU")
         {
-            return await GetAsync<Movie>(new Uri(serverUrl, "movie/"+Id.ToString()+apiKey));
+            return await GetAsync<Movie>(new Uri(serverUrl, "movie/"+Id.ToString()+apiKey+"&language="+language));
         }
         private async Task<T> GetAsync<T>(Uri uri)
         {
