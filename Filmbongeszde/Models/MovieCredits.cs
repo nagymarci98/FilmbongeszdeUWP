@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Filmbongeszde.Models
 {
 
-    public class MovieCredit
+    public class MovieCredits
     {
         public int id { get; set; }
         public Cast[] cast { get; set; }

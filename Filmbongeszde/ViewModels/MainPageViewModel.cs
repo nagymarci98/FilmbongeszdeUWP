@@ -16,7 +16,17 @@ namespace Filmbongeszde.ViewModels
     public class MainPageViewModel : ViewModelBase
     {
         private Movie movie;
+        public Movie Movie
+        {
+            get { return movie; }
+            set { movie = value; }
+        }
         private ObservableCollection<Movie> movies = new ObservableCollection<Movie>();
+        public ObservableCollection<Movie> Movies
+        {
+            get { return movies; }
+            set { movies = value; }
+        }
         private int pageNumber;
 
         public int PageNumber
@@ -24,18 +34,7 @@ namespace Filmbongeszde.ViewModels
             get { return pageNumber; }
             set { pageNumber = value; }
         }
-
-        public ObservableCollection<Movie> Movies
-        {
-            get { return movies; }
-            set { movies = value; }
-        }
-        public Movie Movie
-        {
-            get { return movie; }
-            set { movie = value; }
-        }
-
+       
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             this.Movies.Clear();

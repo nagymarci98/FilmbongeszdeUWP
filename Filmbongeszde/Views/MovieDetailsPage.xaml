@@ -7,23 +7,28 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:c="using:Template10.Controls"
-     
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:vm="using:Filmbongeszde.ViewModels"
-     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
     <Page.Resources>
-        <vm:MovieDetailsPageViewModel x:Name="MovieDetailsViewModel"/>
-        
+        <vm:MovieDetailsPageViewModel x:Name="MovieDetailsModel"/>
+        <CollectionViewSource x:Key="ActorsViewSource"
+                              IsSourceGrouped="False"
+                              Source="{Binding Actors}"
+                              ItemsPath="Actors" />
     </Page.Resources>
     <Page.DataContext>
-        <vm:MovieDetailsPageViewModel />
+        <vm:MovieDetailsPageViewModel x:Name="MovieDetailsViewModel"/>
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="0.25*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="0.25*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -34,7 +39,8 @@
         </Grid.ColumnDefinitions>
         <c:PageHeader Grid.Row="0"
                       Grid.ColumnSpan="4"
-                      Content="{Binding Movie.Title}" />        <Image Source="{Binding Movie.poster_path}"
+                      Content="{Binding Movie.Title}" />
+        <Image Source="{Binding Movie.poster_path}"
                Stretch="Uniform"
                Grid.Column="1"
                Grid.Row="1"
@@ -72,6 +78,8 @@
             </TextBlock>
             <TextBlock Text="{Binding MovieDuriation}"
                        FontSize="20"></TextBlock>
+            <TextBlock Text="{Binding Movie.id}"
+                       FontSize="20"></TextBlock>
         </StackPanel>
         <StackPanel Orientation="Vertical"
                     Grid.Row="1"
@@ -97,7 +105,109 @@
             <TextBlock Text="{Binding Budget}"
                        FontSize="20"></TextBlock>
         </StackPanel>
-       
+        <TextBlock Grid.Row="2"
+                   Grid.Column="1"
+                   Text="Szereplők"
+                   FontSize="28"
+                   Margin="0 0 0 10"></TextBlock>
+        <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollMode="Enabled"
+                  ScrollViewer.VerticalScrollMode="Disabled"
+                  IsItemClickEnabled="True"
+                  Grid.Column="0"
+                  Grid.Row="3"
+                  Grid.ColumnSpan="4"
+                  ItemClick="ListView_ItemClick"
+                  ItemsSource="{Binding Actors}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Image Source="{Binding profile_path}"
+                               Stretch="UniformToFill"
+                               VerticalAlignment="Center"></Image>
+                        <Border VerticalAlignment="Bottom"
+                                Background="#AA000000">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding character}"
+                                           Margin="8"
+                                           Foreground="White">
+                                </TextBlock>
+                                <TextBlock Text="{Binding name}"
+                                           Margin="8"
+                                           Foreground="White">
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding original_name}"
+                                       Margin="-8,0,0,0" />
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+
+
+        <TextBlock Grid.Row="4"
+                   Grid.Column="1"
+                   Text="{Binding SimiliarMoviesText}"
+                   FontSize="28"
+                   Margin="0 0 0 10"></TextBlock>
+        <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollMode="Enabled"
+                  ScrollViewer.VerticalScrollMode="Disabled"
+                  IsItemClickEnabled="True"
+                  Grid.Column="0"
+                  Grid.Row="5"
+                  Grid.ColumnSpan="4"
+                  Margin="0 20"
+                  ItemClick="ListView_ItemClick_1"
+                  ItemsSource="{Binding SimiliarMovies}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Image Source="{Binding poster_path}"
+                               Stretch="UniformToFill"
+                               VerticalAlignment="Center"></Image>
+                        <Border VerticalAlignment="Bottom"
+                                Background="#AA000000">
+                            <TextBlock Text="{Binding Title}"
+                                       Margin="12"
+                                       Foreground="White">
+                            </TextBlock>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}"
+                                       Margin="-12,0,0,0" />
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
 
     </Grid>
 </Page>

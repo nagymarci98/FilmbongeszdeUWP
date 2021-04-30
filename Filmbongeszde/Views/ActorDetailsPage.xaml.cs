@@ -1,7 +1,5 @@
-﻿using Filmbongeszde.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,23 +20,11 @@ namespace Filmbongeszde.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MovieDetailsPage : Page
+    public sealed partial class ActorDetailsPage : Page
     {
-        public MovieDetailsPage()
+        public ActorDetailsPage()
         {
             this.InitializeComponent();
-        }
-
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var actor = (Cast)e.ClickedItem;
-            MovieDetailsViewModel.NavigateToActorDetails(actor.id);
-        }
-
-        private void ListView_ItemClick_1(object sender, ItemClickEventArgs e)
-        {
-            var movie = (Movie)e.ClickedItem;
-            MovieDetailsViewModel.NavigateToMovieDetails(movie.id);
         }
     }
 }

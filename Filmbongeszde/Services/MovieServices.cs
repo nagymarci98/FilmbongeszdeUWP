@@ -13,15 +13,25 @@ namespace Filmbongeszde.Services
     {
         private readonly Uri serverUrl = new Uri("https://api.themoviedb.org/3/");
         private readonly string apiKey = "?api_key=2b94e2a30de7a70832fae1f0d6193472";
-        public async Task<SearchMovieResult> GetTopRatedMoviesAsync(int pageNumber, string languange="en-US")
+        public async Task<SearchMovieResult> GetTopRatedMoviesAsync(int pageNumber, string languange="hu-HU")
         {
             return await GetAsync<SearchMovieResult>(new Uri(serverUrl, "movie/top_rated"+apiKey+"&language="+languange+"&page="+pageNumber));
         }
-        public async Task<SearchMovieResult> GetMoviesBySearchAsync(string keyword, string language = "en-US")
+        public async Task<SearchMovieResult> GetMoviesBySearchAsync(string keyword, string language = "hu-HU")
         {
             return await GetAsync<SearchMovieResult>(new Uri(serverUrl,"search/movie"+apiKey+"&language="+language+"&query="+keyword+"&page=1&include_adult=false"));
         }
-        public async Task<Movie> GetMovieByIdAsync(int Id, string language="en-US")
+        public async Task<SearchMovieResult> GetSimiliarMoviesAsync(int movieId, string language = "hu-HU")
+        {
+           // return await GetAsync<SearchMovieResult>(new Uri(serverUrl, "movie/" + movieId+""+apiKey + "&language=" +language+"&page=1"));
+            return await GetAsync<SearchMovieResult>(new Uri(serverUrl,$"movie/{movieId}/similar{apiKey}&language={language}&page=1"));
+        }
+        public async Task<MovieCredits> GetMovieCredits(int movieId, string language = "hu-HU")
+        {
+            return await GetAsync<MovieCredits>(new Uri(serverUrl, "movie/" + movieId.ToString() +"/credits"+apiKey+"&"+language));
+        }
+
+        public async Task<Movie> GetMovieByIdAsync(int Id, string language= "hu-HU")
         {
             return await GetAsync<Movie>(new Uri(serverUrl, "movie/"+Id.ToString()+apiKey));
         }
