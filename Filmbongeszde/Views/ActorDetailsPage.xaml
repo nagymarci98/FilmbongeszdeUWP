@@ -5,16 +5,138 @@
     xmlns:local="using:Filmbongeszde.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:vm="using:Filmbongeszde.ViewModels"
-      mc:Ignorable="d"
+    xmlns:vm="using:Filmbongeszde.ViewModels"
+    mc:Ignorable="d"
+    xmlns:c="using:Template10.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
-        <vm:ActorDetailsPageViewModel x:Name="ActorDetailsViewModel" />
+        <vm:ActorDetailsPageViewModel  x:Name="ActorDetails"/>
     </Page.Resources>
     <Page.DataContext>
-        <vm:ActorDetailsPageViewModel />
+        <vm:ActorDetailsPageViewModel x:Name="ActorDetailsViewModel" />
     </Page.DataContext>
-    <Grid>
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="0.6*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="0.4*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                <ColumnDefinition Width="0.375*"></ColumnDefinition>
+                <ColumnDefinition Width="0.375*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <c:PageHeader Grid.Row="0"
+                          Grid.ColumnSpan="4"
+                          Content="{Binding Actor.name}" />
+            <Image Source="{Binding Actor.profile_path}"
+                   Stretch="Uniform"
+                   Grid.Column="1"
+                   Grid.Row="1"
+                   Width="300"
+                   Margin="0 15 0 0">
+            </Image>
+            <StackPanel Orientation="Vertical"
+                        Padding="5 5 15 5"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Margin="0 15 0 0">
+                <TextBlock Text="{Binding Actor.name}"
+                           FontSize="28"
+                           TextWrapping="Wrap"
+                           Margin="0 0 0 15">
+                </TextBlock>
+                <TextBlock Text="{Binding Job}"
+                           FontSize="18"
+                           TextWrapping="Wrap"
+                           Margin="0 0 0 10">
+                </TextBlock>
+                <ScrollViewer MaxHeight="350"
+                              VerticalScrollBarVisibility="Visible">
+                    <TextBlock Text="{Binding Actor.biography}"
+                               FontSize="18"
+                               TextWrapping="Wrap"
+                               Margin="0 0 0 10">
+                    </TextBlock>
+                </ScrollViewer>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                        Grid.Row="1"
+                        Padding="5"
+                        Grid.Column="3"
+                        Margin="0 55 0 0">
+                <HyperlinkButton Content="{Binding Actor.imdb_id}"
+                                 NavigateUri="{Binding Actor.imdb_id}"
+                                 FontSize="20"
+                                 Margin="0 0 0 10">
+                </HyperlinkButton>
+                <TextBlock Text="{Binding BithPlace}"
+                           FontSize="20"
+                           TextWrapping="Wrap"
+                           Margin="0 0 0 10"></TextBlock>
+                <TextBlock Text="{Binding BirthDay}"
+                           FontSize="20"
+                           Margin="0 0 0 10">
+                </TextBlock>
+                <TextBlock Text="{Binding KnownAs}"
+                           FontSize="20"
+                           TextWrapping="Wrap"
+                           Margin="0 0 0 10"></TextBlock>
 
-    </Grid>
+            </StackPanel>
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       Text="Filmei"
+                       FontSize="28"
+                       Margin="0 0 0 10"></TextBlock>
+            <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollMode="Enabled"
+                      ScrollViewer.VerticalScrollMode="Disabled"
+                      IsItemClickEnabled="True"
+                      Grid.Column="0"
+                      Grid.Row="3"
+                      Grid.ColumnSpan="4"
+                      ItemClick="OnMovieClick"
+                      ItemsSource="{Binding ActorsMovies}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Image Source="{Binding backdrop_path}"
+                                   Stretch="UniformToFill"
+                                   VerticalAlignment="Center"
+                                   Width="150"></Image>
+                            <Border VerticalAlignment="Bottom"
+                                    Background="#AA000000">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding title}"
+                                               Margin="8"
+                                               Foreground="White">
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding title}"
+                                           Margin="-8,0,0,0" />
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </Grid>
+    </ScrollViewer>
 </Page>

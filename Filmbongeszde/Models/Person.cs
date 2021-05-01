@@ -13,7 +13,7 @@ namespace Filmbongeszde.Models
         public string[] also_known_as { get; set; }
         public string biography { get; set; }
         public string birthday { get; set; }
-        public object deathday { get; set; }
+        public string deathday { get; set; }
         public int gender { get; set; }
         public object homepage { get; set; }
         public int id { get; set; }

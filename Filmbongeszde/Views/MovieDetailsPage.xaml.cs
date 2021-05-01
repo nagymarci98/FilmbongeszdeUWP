@@ -31,7 +31,7 @@ namespace Filmbongeszde.Views
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var actor = (Cast)e.ClickedItem;
+            var actor = (CastMovieCredit)e.ClickedItem;
             MovieDetailsViewModel.NavigateToActorDetails(actor.id);
         }
 

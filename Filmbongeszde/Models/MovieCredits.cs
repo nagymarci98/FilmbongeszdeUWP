@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,13 @@ namespace Filmbongeszde.Models
     public class MovieCredits
     {
         public int id { get; set; }
-        public Cast[] cast { get; set; }
-        public Crew[] crew { get; set; }
+        [JsonProperty(PropertyName = "cast")]
+        public CastMovieCredit[] cast { get; set; }
+        [JsonProperty(PropertyName = "crew")]
+        public CrewMovieCredits[] crew { get; set; }
     }
 
-    public class Cast
+    public class CastMovieCredit
     {
         public bool adult { get; set; }
         public int gender { get; set; }
@@ -30,7 +33,7 @@ namespace Filmbongeszde.Models
         public int order { get; set; }
     }
 
-    public class Crew
+    public class CrewMovieCredits
     {
         public bool adult { get; set; }
         public int gender { get; set; }

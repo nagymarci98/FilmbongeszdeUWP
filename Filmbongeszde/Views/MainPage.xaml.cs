@@ -10,6 +10,7 @@ namespace Filmbongeszde.Views
         {
             InitializeComponent();
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            ViewModel.GenreCB = GenreCB;
         }
 
         private void Movies_OnItemClick(object sender, ItemClickEventArgs e)
@@ -46,6 +47,28 @@ namespace Filmbongeszde.Views
         private async void PrevPageButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             await ViewModel.PrevPage();
+        }
+
+        private async void TypeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {   
+            if(Type.SelectedIndex == 0)
+            {
+                ViewModel.IsMovie = true;
+                await ViewModel.SearchMovie(ViewModel.SearchString, ViewModel.PageNumber);
+            }
+            else
+            {
+                ViewModel.IsMovie = false;
+                await ViewModel.SearchTvSeries(ViewModel.SearchString, ViewModel.PageNumber);
+            }
+        }
+
+        private async void GenreCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var temp = (Genre)GenreCB.SelectedValue;
+            ViewModel.SelectedGenre = temp.name;
+            ViewModel.WasGenreSelected = true;
+            //await ViewModel.SearchMovieByGenre();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Filmbongeszde.Services
         }
         public async Task<ListOfGenres> GetAllGenreAsync(string language = "hu-HU")
         {
-            return await GetAsync<ListOfGenres>(new Uri("https://api.themoviedb.org/3/genre/movie/list?api_key=2b94e2a30de7a70832fae1f0d6193472&language=en-U"));
+            return await GetAsync<ListOfGenres>(new Uri("https://api.themoviedb.org/3/genre/movie/list?api_key=2b94e2a30de7a70832fae1f0d6193472&language=hu-HU"));
         }
         private async Task<T> GetAsync<T>(Uri uri)
         {

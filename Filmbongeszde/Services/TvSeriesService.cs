@@ -9,15 +9,18 @@ using System.Threading.Tasks;
 
 namespace Filmbongeszde.Services
 {
-    public class PersonService
+    class TvSeriesService
     {
         private readonly Uri serverUrl = new Uri("https://api.themoviedb.org/3/");
         private readonly string apiKey = "?api_key=2b94e2a30de7a70832fae1f0d6193472";
-        public async Task<Person> GetPersonByIdAsync(int Id, string language = "hu-HU")
+        public async Task<TvSeries> GetTvSeriesByIdAsync(int Id, string language = "hu-HU")
         {
-            return await GetAsync<Person>(new Uri(serverUrl, "person/" + Id.ToString() + apiKey+ "&language=" + language));
+            return await GetAsync<TvSeries>(new Uri(serverUrl, ""));
         }
-
+        public async Task<TvSeriesSearch> GetTvSeriesBySearchAsync(string keyword, int pageNumner, string language = "hu-HU")
+        {
+            return await GetAsync<TvSeriesSearch>(new Uri(serverUrl, ""));
+        }
         private async Task<T> GetAsync<T>(Uri uri)
         {
             using (var client = new HttpClient())
@@ -27,11 +30,6 @@ namespace Filmbongeszde.Services
                 T result = JsonConvert.DeserializeObject<T>(json);
                 return result;
             }
-        }
-
-        internal async Task<ActorMovies> GetActorMoviesByIdAsync(int actorId, string language="hu-HU")
-        {
-            return await GetAsync<ActorMovies>(new Uri(serverUrl, $"person/{actorId}/movie_credits{apiKey}&language={language}"));
         }
     }
 }

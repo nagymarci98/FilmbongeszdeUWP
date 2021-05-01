@@ -18,8 +18,8 @@ namespace Filmbongeszde.ViewModels
     {
         #region Properties
       
-        private ObservableCollection<Cast> actors = new ObservableCollection<Cast>();
-        public ObservableCollection<Cast> Actors
+        private ObservableCollection<CastMovieCredit> actors = new ObservableCollection<CastMovieCredit>();
+        public ObservableCollection<CastMovieCredit> Actors
         {
             get { return actors; }
             set { actors = value; }

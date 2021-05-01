@@ -56,13 +56,37 @@
                         Margin="0 0 5 0"
                         Click="Button_Click">
                 </Button>
-                <ComboBox x:Name="GenreCB"
+                <ComboBox Name="GenreCB"
                           Margin="0 0 5 0"
                           Height="35"
                           Width="200"
                           PlaceholderText="Műfaj"
-                          ItemsSource="{Binding Genres}" 
-                          DisplayMemberPath="name"/>
+                          SelectionChanged="GenreCB_SelectionChanged"
+                          ItemsSource="{Binding Genres}"
+                          DisplayMemberPath="name" />
+                <ComboBox x:Name="SortBy"
+                          Margin="0 0 5 0"
+                          Height="35"
+                          Width="200"
+                          PlaceholderText="Rendezés">
+                    <ComboBoxItem>A-Z</ComboBoxItem>
+                    <ComboBoxItem>Z-A</ComboBoxItem>
+                    <ComboBoxItem>Értékelés alapján növekvő</ComboBoxItem>
+                    <ComboBoxItem>Értékelés alapján csökkenő</ComboBoxItem>
+                    <ComboBoxItem>Nézettség alapján növekvő</ComboBoxItem>
+                    <ComboBoxItem>Nézettség alapján csökkenő</ComboBoxItem>
+                    <ComboBoxItem>Megjelenés alapján növekvő</ComboBoxItem>
+                    <ComboBoxItem>Megjelenés alapján csökkenő</ComboBoxItem>
+                </ComboBox>
+                <ComboBox x:Name="Type"
+                          Margin="0 0 5 0"
+                          Height="35"
+                          Width="200"
+                          PlaceholderText="Típus"
+                          SelectionChanged="TypeSelectionChanged">
+                    <ComboBoxItem>Film</ComboBoxItem>
+                    <ComboBoxItem>Sorozat</ComboBoxItem>
+                    </ComboBox>
             </StackPanel>
             <TextBlock Text="{Binding HeaderString}"
                        Grid.ColumnSpan="2"
@@ -78,7 +102,7 @@
                     <DataTemplate>
                         <Grid Width="200"
                               Height="300"
-                              Margin="5">
+                              Margin="4">
                             <Image Source="{Binding poster_path}"
                                    Stretch="Uniform"
                                    VerticalAlignment="Center" />
@@ -87,6 +111,7 @@
                                 <TextBlock Text="{Binding Title}"
                                            Margin="12"
                                            Foreground="White"
+                                           TextWrapping="Wrap"
                                            HorizontalAlignment="Center" />
                             </Border>
                         </Grid>

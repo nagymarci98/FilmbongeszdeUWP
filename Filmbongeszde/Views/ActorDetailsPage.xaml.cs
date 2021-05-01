@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Filmbongeszde.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,12 @@ namespace Filmbongeszde.Views
         public ActorDetailsPage()
         {
             this.InitializeComponent();
+        }
+
+        private void OnMovieClick(object sender, ItemClickEventArgs e)
+        {
+            var movie = (CastActorMovies)e.ClickedItem;
+            ActorDetailsViewModel.NavigateToMovieDetails(movie.id);
         }
     }
 }
