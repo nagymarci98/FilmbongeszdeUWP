@@ -23,7 +23,7 @@ namespace Filmbongeszde.ViewModels
             this.SearchString = "";
             this.PageNumber = 1;
             this.IsMovie = true;
-            this.WasGenreSelected = false;
+            // this.WasGenreSelected = false;
         }
         private ObservableCollection<Genre> genres = new ObservableCollection<Genre>();
         public ObservableCollection<Genre> Genres
@@ -31,30 +31,27 @@ namespace Filmbongeszde.ViewModels
             get { return genres; }
             set { genres = value; }
         }
-        private Movie movie;
-        public Movie Movie
+        private ObservableCollection<TvSeriesOrMovieDisplaySmall> displayables = new ObservableCollection<TvSeriesOrMovieDisplaySmall>();
+        public ObservableCollection<TvSeriesOrMovieDisplaySmall> Displayables
         {
-            get { return movie; }
-            set { movie = value; }
+            get { return displayables; }
+            set { displayables = value; }
         }
-        private ObservableCollection<Movie> movies = new ObservableCollection<Movie>();
-        public ObservableCollection<Movie> Movies
+        private ObservableCollection<TvSeries> tvSeries = new ObservableCollection<TvSeries>();
+        public ObservableCollection<TvSeries> TvSeries
         {
-            get { return movies; }
-            set { movies = value; }
+            get { return tvSeries; }
+            set { tvSeries = value; }
         }
         public int SeachPagesCount { get; set; }
         public int TopRatedPagesCount { get; set; }
         public bool IsMovie { get; set; }
-
-        
-
         private int pageNumber;
 
         public int PageNumber
         {
             get { return pageNumber; }
-            set { Set(ref pageNumber,value); }
+            set { Set(ref pageNumber, value); }
         }
         private string headerString;
 
@@ -67,67 +64,86 @@ namespace Filmbongeszde.ViewModels
         public bool WasSearched { get; set; }
         public string SearchString { get; set; }
         public string SelectedGenre { get; internal set; }
-        public bool WasGenreSelected { get; set; }
-        public bool WasSortingSelected { get; set; }
-        public ComboBox GenreCB { get; set; }
+        //public bool WasGenreSelected { get; set; }
+        // public bool WasSortingSelected { get; set; }
+        //public ComboBox GenreCB { get; set; }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             if (IsMovie)
             {
-                if(WasGenreSelected || WasSortingSelected)
+                if (WasSearched && this.SearchString.Length != 0)
                 {
-
+                    await SearchMovie(this.SearchString, this.PageNumber);
                 }
                 else
                 {
-                    if (WasSearched && this.SearchString.Length != 0)
-                    {
-                        await SearchMovie(this.SearchString, this.PageNumber);
-                    }
-                    else
-                    {
-                        await GetTopRatedMovies(this.PageNumber);
-                    }
+                    await GetTopRatedMovies(this.PageNumber);
                 }
             }
             else
             {
-
+                if (WasSearched && this.SearchString.Length != 0)
+                {
+                    await SearchTvSeries(this.SearchString, this.PageNumber);
+                }
+                else
+                {
+                    await GetTopRatedTvSeries(this.PageNumber);
+                }
             }
-            await GetAllGenres();
-            if (WasGenreSelected)
+            //await GetAllGenres();
+            /*if (WasGenreSelected)
             {
                 setGenreSelected();
-            }
+            }*/
             await base.OnNavigatedToAsync(parameter, mode, state);
         }
 
-        private void setGenreSelected()
-        {
-            var slectedGenreFromList = Genres.Where(x => x.name == this.SelectedGenre).FirstOrDefault();
-            if(slectedGenreFromList != null)
-            {
-                GenreCB.SelectedIndex = this.Genres.IndexOf((Genre)slectedGenreFromList);
-            }
-            else
-            {
-                GenreCB.SelectedIndex = this.Genres.IndexOf(Genres.ElementAt(0));
-            }
-        }
+        
 
+        /*
+private void setGenreSelected()
+{
+   var slectedGenreFromList = Genres.Where(x => x.name == this.SelectedGenre).FirstOrDefault();
+   if(slectedGenreFromList != null)
+   {
+       GenreCB.SelectedIndex = this.Genres.IndexOf((Genre)slectedGenreFromList);
+   }
+   else
+   {
+       GenreCB.SelectedIndex = this.Genres.IndexOf(Genres.ElementAt(0));
+   }
+}
+*/
         internal async Task NextPage()
         {
             if (WasSearched)
             {
 
                 if (this.PageNumber + 1 < this.SeachPagesCount)
-                    await SearchMovie(SearchString, ++this.PageNumber);
+                    if (IsMovie)
+                    {
+                        await SearchMovie(SearchString, ++this.PageNumber);
+                    }
+                    else
+                    {
+                        await SearchTvSeries(SearchString, ++this.PageNumber);
+                    }
             }
             else
             {
                 if (this.PageNumber + 1 < this.TopRatedPagesCount)
-                    await GetTopRatedMovies(++this.PageNumber);
+                {
+                    if (IsMovie)
+                    {
+                        await GetTopRatedMovies(++this.PageNumber);
+                    }
+                    else
+                    {
+                        await GetTopRatedTvSeries(++this.PageNumber);
+                    }
+                }
             }
         }
 
@@ -137,21 +153,35 @@ namespace Filmbongeszde.ViewModels
             {
                 if (this.PageNumber != 1)
                 {
-                    await SearchMovie(SearchString, --this.PageNumber);
+                    if (IsMovie)
+                    {
+                        await SearchMovie(SearchString, --this.PageNumber);
+                    }
+                    else
+                    {
+                        await SearchTvSeries(SearchString, --this.PageNumber);
+                    }
                 }
             }
             else
             {
                 if (this.PageNumber != 1)
-                    await GetTopRatedMovies(--this.PageNumber);
+                {
+                    if (IsMovie)
+                    {
+                        await GetTopRatedMovies(--this.PageNumber);
+
+                    }
+                    else
+                    {
+                        await GetTopRatedTvSeries(--this.PageNumber);
+                    }
+                }
             }
         }
 
-        internal Task SearchTvSeries(string searchString, int pageNumber)
-        {
-            throw new NotImplementedException();
-        }
-        private async Task GetAllGenres()
+
+        /*private async Task GetAllGenres()
         {
             var ms = new MovieServices();
             var genresTemp =await ms.GetAllGenreAsync();
@@ -163,49 +193,85 @@ namespace Filmbongeszde.ViewModels
             {
                 this.Genres.Add(genre);
             }
-        }
+        }*/
 
-        public async Task GetTopRatedMovies(int page)
+        public void NavigateToTvSeriesDetails(int movieId)
         {
-            this.Movies.Clear();
-            var service = new MovieServices();
-            var topRatedMovies = await service.GetTopRatedMoviesAsync(page);
-            foreach (var item in topRatedMovies.movies)
-            {
-                item.poster_path = "https://image.tmdb.org/t/p/w500/" + item.poster_path;
-                this.Movies.Add(item);
-            }
-            this.TopRatedPagesCount = topRatedMovies.total_pages;
+            NavigationService.Navigate(typeof(TvSeriesDetailsPage), movieId);
         }
-        public void NavigateToDetails(int movieId)
+        public void NavigateToMovieDetails(int movieId)
         {
             NavigationService.Navigate(typeof(MovieDetailsPage), movieId);
         }
         public async Task SearchMovie(string keyword, int page)
         {
-            if(keyword.Length != 0)
+            this.Displayables.Clear();
+            this.SearchString = keyword;
+            this.WasSearched = true;
+            this.HeaderString = "Keresés...";
+            var movieService = new MovieServices();
+            var searchedMovies = await movieService.GetMoviesBySearchAsync(keyword, page);
+            if (searchedMovies.movies.Count == 0)
             {
-                this.Movies.Clear();
-                this.SearchString = keyword;
-                this.WasSearched = true;
-                this.HeaderString = "Keresés...";
-                var movieService = new MovieServices();
-                var searchedMovies = await movieService.GetMoviesBySearchAsync(keyword, page);
-                if (searchedMovies.movies.Count == 0)
-                {
-                    this.HeaderString = "Nincs találat a keresésre";
-                }
-                else
-                {
-                    foreach (var movie in searchedMovies.movies)
-                    {
-                        movie.poster_path = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
-                        this.Movies.Add(movie);
-                    }
-                    this.HeaderString = $"{searchedMovies.movies.Count} találat van";
-                }
-                this.SeachPagesCount = searchedMovies.total_pages;
+                this.HeaderString = "Nincs találat a keresésre";
             }
+            else
+            {
+                foreach (var movie in searchedMovies.movies)
+                {
+                    movie.poster_path = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
+                    this.Displayables.Add(new TvSeriesOrMovieDisplaySmall(true, movie.poster_path, movie.Title, movie.id));
+                }
+                this.HeaderString = $"{searchedMovies.movies.Count} találat van";
+            }
+            this.SeachPagesCount = searchedMovies.total_pages;
         }
+        public async Task GetTopRatedMovies(int page)
+        {
+            this.Displayables.Clear();
+            var service = new MovieServices();
+            var topRatedMovies = await service.GetTopRatedMoviesAsync(page);
+            foreach (var item in topRatedMovies.movies)
+            {
+                item.poster_path = "https://image.tmdb.org/t/p/w500" + item.poster_path;
+                this.Displayables.Add(new TvSeriesOrMovieDisplaySmall(true, item.poster_path, item.Title, item.id));
+            }
+            this.TopRatedPagesCount = topRatedMovies.total_pages;
+        }
+        internal async Task SearchTvSeries(string searchString, int pageNumber)
+        {
+            this.Displayables.Clear();
+            this.SearchString = searchString;
+            this.WasSearched = true;
+            this.HeaderString = "Keresés...";
+            var tvs = new TvSeriesService();
+            var topRatedTemp = await tvs.GetTvSeriesBySearchAsync(this.SearchString, PageNumber);
+            if (topRatedTemp.tvSeries.Count == 0)
+            {
+                this.HeaderString = "Nincs találat a keresésre";
+            }
+            else
+            {
+                foreach (var tvSeries in topRatedTemp.tvSeries)
+                {
+                    tvSeries.poster_path = "https://image.tmdb.org/t/p/w500" + tvSeries.poster_path;
+                    this.Displayables.Add(new TvSeriesOrMovieDisplaySmall(false, tvSeries.poster_path, tvSeries.name, tvSeries.id));
+                }
+            }
+            this.SeachPagesCount = topRatedTemp.total_pages;
+        }
+        public async Task GetTopRatedTvSeries(int pageNumber)
+        {
+            var tvs = new TvSeriesService();
+            var topRatedTemp = await tvs.GetTopRatedTvSeriesAsync(PageNumber);
+            this.Displayables.Clear();
+            foreach (var tvSeries in topRatedTemp.tvSeries)
+            {
+                tvSeries.poster_path = "https://image.tmdb.org/t/p/w500" + tvSeries.poster_path;
+                this.Displayables.Add(new TvSeriesOrMovieDisplaySmall(false, tvSeries.poster_path, tvSeries.name, tvSeries.id));
+            }
+            this.SeachPagesCount = topRatedTemp.total_pages;
+        }
+
     }
 }

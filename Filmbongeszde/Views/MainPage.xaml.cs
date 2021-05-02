@@ -10,20 +10,36 @@ namespace Filmbongeszde.Views
         {
             InitializeComponent();
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
-            ViewModel.GenreCB = GenreCB;
+           // ViewModel.GenreCB = GenreCB;
         }
 
         private void Movies_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            var movie = (Movie)e.ClickedItem;
-            ViewModel.NavigateToDetails(movie.id);
+            var item = (TvSeriesOrMovieDisplaySmall)e.ClickedItem;
+            if (ViewModel.IsMovie)
+            {
+                ViewModel.NavigateToMovieDetails(item.id);
+            }
+            else
+            {
+                ViewModel.NavigateToTvSeriesDetails(item.id);
+            }
         }
 
         private async void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             if(searchBox.Text.Length > 0)
             {
-                await ViewModel.SearchMovie(searchBox.Text, ViewModel.PageNumber);
+                ViewModel.PageNumber = 1;
+                if (ViewModel.IsMovie)
+                {
+                    await ViewModel.SearchMovie(searchBox.Text, ViewModel.PageNumber);
+                }
+                else
+                {
+                    await ViewModel.SearchTvSeries(searchBox.Text, ViewModel.PageNumber);
+
+                }
             }
         }
 
@@ -31,11 +47,20 @@ namespace Filmbongeszde.Views
         {
             if(searchBox.Text.Length == 0)
             {
-                ViewModel.PageNumber = 1;
-                ViewModel.HeaderString = "Legjobb minősítésű filmek";
-                await ViewModel.GetTopRatedMovies(ViewModel.PageNumber);
                 ViewModel.SearchString = "";
                 ViewModel.WasSearched = false;
+                ViewModel.PageNumber = 1;
+
+                if (ViewModel.IsMovie)
+                {
+                    ViewModel.HeaderString = "Legjobb minősítésű filmek";
+                    await ViewModel.GetTopRatedMovies(ViewModel.PageNumber);
+                }
+                else
+                {
+                    ViewModel.HeaderString = "Legjobb minősítésű Sorozatok";
+                    await ViewModel.GetTopRatedTvSeries(ViewModel.PageNumber);
+                }
             }
         }
 
@@ -50,24 +75,27 @@ namespace Filmbongeszde.Views
         }
 
         private async void TypeSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {   
+        {
+            searchBox.Text = "";
             if(Type.SelectedIndex == 0)
             {
+                ViewModel.PageNumber = 1;
                 ViewModel.IsMovie = true;
-                await ViewModel.SearchMovie(ViewModel.SearchString, ViewModel.PageNumber);
+                await ViewModel.GetTopRatedMovies(ViewModel.PageNumber);
             }
             else
             {
+                ViewModel.PageNumber = 1;
                 ViewModel.IsMovie = false;
-                await ViewModel.SearchTvSeries(ViewModel.SearchString, ViewModel.PageNumber);
+                await ViewModel.GetTopRatedTvSeries(ViewModel.PageNumber);
             }
         }
 
         private async void GenreCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var temp = (Genre)GenreCB.SelectedValue;
-            ViewModel.SelectedGenre = temp.name;
-            ViewModel.WasGenreSelected = true;
+            //var temp = (Genre)GenreCB.SelectedValue;
+           // ViewModel.SelectedGenre = temp.name;
+            //ViewModel.WasGenreSelected = true;
             //await ViewModel.SearchMovieByGenre();
         }
     }

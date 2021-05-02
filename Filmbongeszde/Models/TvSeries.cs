@@ -10,10 +10,10 @@ namespace Filmbongeszde.Models
     public class TvSeries
     {
         public string backdrop_path { get; set; }
-        public Created_By[] created_by { get; set; }
+        public List<Created_By> created_by { get; set; }
         public int[] episode_run_time { get; set; }
         public string first_air_date { get; set; }
-        public Genre[] genres { get; set; }
+        public List<Genre> genres { get; set; }
         public string homepage { get; set; }
         public int id { get; set; }
         public bool in_production { get; set; }
@@ -22,7 +22,7 @@ namespace Filmbongeszde.Models
         public Last_Episode_To_Air last_episode_to_air { get; set; }
         public string name { get; set; }
         public object next_episode_to_air { get; set; }
-        public Network[] networks { get; set; }
+        public List<Network> networks { get; set; }
         public int number_of_episodes { get; set; }
         public int number_of_seasons { get; set; }
         public string[] origin_country { get; set; }
@@ -31,10 +31,10 @@ namespace Filmbongeszde.Models
         public string overview { get; set; }
         public float popularity { get; set; }
         public string poster_path { get; set; }
-        public Production_Companies[] production_companies { get; set; }
-        public Production_Countries[] production_countries { get; set; }
-        public Season[] seasons { get; set; }
-        public Spoken_Languages[] spoken_languages { get; set; }
+        public List<Production_Companies> production_companies { get; set; }
+        public List<Production_Countries> production_countries { get; set; }
+        public List<Season> seasons { get; set; }
+        public List<Spoken_Languages> spoken_languages { get; set; }
         public string status { get; set; }
         public string tagline { get; set; }
         public string type { get; set; }
@@ -86,18 +86,6 @@ namespace Filmbongeszde.Models
         public string iso_3166_1 { get; set; }
         public string name { get; set; }
     }
-
-    public class Season
-    {
-        public string air_date { get; set; }
-        public int episode_count { get; set; }
-        public int id { get; set; }
-        public string name { get; set; }
-        public string overview { get; set; }
-        public string poster_path { get; set; }
-        public int season_number { get; set; }
-    }
-
     public class Spoken_Languages
     {
         public string english_name { get; set; }

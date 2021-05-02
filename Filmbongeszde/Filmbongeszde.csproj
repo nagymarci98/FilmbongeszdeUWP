@@ -99,7 +99,9 @@
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\SearchMovieResult.cs" />
     <Compile Include="Models\TvSeries.cs" />
+    <Compile Include="Models\TvSeriesOrMovieDisplaySmall.cs" />
     <Compile Include="Models\TvSeriesSearch.cs" />
+    <Compile Include="Models\TvSeriesSeason.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MovieServices.cs" />
     <Compile Include="Services\PersonService.cs" />
@@ -107,6 +109,8 @@
     <Compile Include="ViewModels\ActorDetailsPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MovieDetailsPageViewModel.cs" />
+    <Compile Include="ViewModels\TvSeriesDetailsPageViewModel.cs" />
+    <Compile Include="ViewModels\TvSeriesEpisodeDetailsPageViewModel.cs" />
     <Compile Include="Views\ActorDetailsPage.xaml.cs">
       <DependentUpon>ActorDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -115,6 +119,12 @@
     </Compile>
     <Compile Include="Views\MovieDetailsPage.xaml.cs">
       <DependentUpon>MovieDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TvSeriesDetailsPage.xaml.cs">
+      <DependentUpon>TvSeriesDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TvSeriesEpisodeDetailsPage.xaml.cs">
+      <DependentUpon>TvSeriesEpisodeDetailsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +161,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MovieDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TvSeriesDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TvSeriesEpisodeDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

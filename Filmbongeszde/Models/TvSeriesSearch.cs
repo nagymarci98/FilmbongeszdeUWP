@@ -12,7 +12,7 @@ namespace Filmbongeszde.Models
     {
         public int page { get; set; }
         [JsonProperty(PropertyName = "results")]
-        public Movie[] movies { get; set; }
+        public List<TvSeries> tvSeries { get; set; }
         public int total_pages { get; set; }
         public int total_results { get; set; }
     }
