@@ -75,8 +75,6 @@ namespace Filmbongeszde.ViewModels
             set { Set(ref similiarMoviesText ,value); }
         }
         
-
-
         #endregion
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {

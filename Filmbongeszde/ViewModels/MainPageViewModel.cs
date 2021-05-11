@@ -17,6 +17,9 @@ namespace Filmbongeszde.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public MainPageViewModel()
         {
             this.HeaderString = "Legjobb Mínősítésű Filmek";
@@ -25,27 +28,36 @@ namespace Filmbongeszde.ViewModels
             this.IsMovie = true;
             // this.WasGenreSelected = false;
         }
+        /// <summary>
+        /// List for the genres
+        /// </summary>
         private ObservableCollection<Genre> genres = new ObservableCollection<Genre>();
         public ObservableCollection<Genre> Genres
         {
             get { return genres; }
             set { genres = value; }
         }
+        /// <summary>
+        /// List for the displayable movies and tv series
+        /// </summary>
         private ObservableCollection<TvSeriesOrMovieDisplaySmall> displayables = new ObservableCollection<TvSeriesOrMovieDisplaySmall>();
         public ObservableCollection<TvSeriesOrMovieDisplaySmall> Displayables
         {
             get { return displayables; }
             set { displayables = value; }
         }
-        private ObservableCollection<TvSeries> tvSeries = new ObservableCollection<TvSeries>();
-        public ObservableCollection<TvSeries> TvSeries
-        {
-            get { return tvSeries; }
-            set { tvSeries = value; }
-        }
+        /// <summary>
+        /// The amount of the results
+        /// </summary>
         public int SeachPagesCount { get; set; }
         public int TopRatedPagesCount { get; set; }
+        /// <summary>
+        /// Bool for determine if its tv series or movie
+        /// </summary>
         public bool IsMovie { get; set; }
+        /// <summary>
+        /// Actual page number
+        /// </summary>
         private int pageNumber;
 
         public int PageNumber
@@ -53,6 +65,9 @@ namespace Filmbongeszde.ViewModels
             get { return pageNumber; }
             set { Set(ref pageNumber, value); }
         }
+        /// <summary>
+        /// Header string to show in the XAML
+        /// </summary>
         private string headerString;
 
         public string HeaderString
@@ -60,7 +75,9 @@ namespace Filmbongeszde.ViewModels
             get { return headerString; }
             set { Set(ref headerString, value); }
         }
-
+        /// <summary>
+        /// Boolean for save if was searched or not
+        /// </summary>
         public bool WasSearched { get; set; }
         public string SearchString { get; set; }
         public string SelectedGenre { get; internal set; }
@@ -68,6 +85,13 @@ namespace Filmbongeszde.ViewModels
         // public bool WasSortingSelected { get; set; }
         //public ComboBox GenreCB { get; set; }
 
+        /// <summary>
+        /// Runs when navigated to the view.
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <param name="mode"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             if (IsMovie)
@@ -116,6 +140,10 @@ private void setGenreSelected()
    }
 }
 */
+        /// <summary>
+        /// Moves to the next page of resutls if theres any
+        /// </summary>
+        /// <returns></returns>
         internal async Task NextPage()
         {
             if (WasSearched)
@@ -146,7 +174,10 @@ private void setGenreSelected()
                 }
             }
         }
-
+        /// <summary>
+        /// Same as next page but it goes back
+        /// </summary>
+        /// <returns></returns>
         internal async Task PrevPage()
         {
             if (WasSearched)
@@ -194,7 +225,10 @@ private void setGenreSelected()
                 this.Genres.Add(genre);
             }
         }*/
-
+        /// <summary>
+        /// Navigation functions, to movieDetails, tv series details wtc.
+        /// </summary>
+        /// <param name="movieId"></param>
         public void NavigateToTvSeriesDetails(int movieId)
         {
             NavigationService.Navigate(typeof(TvSeriesDetailsPage), movieId);
@@ -203,6 +237,12 @@ private void setGenreSelected()
         {
             NavigationService.Navigate(typeof(MovieDetailsPage), movieId);
         }
+        /// <summary>
+        /// Function for searching movies
+        /// </summary>
+        /// <param name="keyword">The keywords to search for</param>
+        /// <param name="page">The number of page requested</param>
+        /// <returns></returns>
         public async Task SearchMovie(string keyword, int page)
         {
             this.Displayables.Clear();
@@ -226,6 +266,11 @@ private void setGenreSelected()
             }
             this.SeachPagesCount = searchedMovies.total_pages;
         }
+        /// <summary>
+        /// Function to get the top rated movies
+        /// </summary>
+        /// <param name="page">The number of page that was requested</param>
+        /// <returns></returns>
         public async Task GetTopRatedMovies(int page)
         {
             this.Displayables.Clear();
@@ -238,6 +283,12 @@ private void setGenreSelected()
             }
             this.TopRatedPagesCount = topRatedMovies.total_pages;
         }
+        /// <summary>
+        /// Function for searching tv series
+        /// </summary>
+        /// <param name="searchString">The name of the tv series to search for</param>
+        /// <param name="pageNumber">The number of page the was requested</param>
+        /// <returns></returns>
         internal async Task SearchTvSeries(string searchString, int pageNumber)
         {
             this.Displayables.Clear();
@@ -260,6 +311,11 @@ private void setGenreSelected()
             }
             this.SeachPagesCount = topRatedTemp.total_pages;
         }
+        /// <summary>
+        /// Function to get the top rated tv series
+        /// </summary>
+        /// <param name="pageNumber">The pagenumber that was requested</param>
+        /// <returns></returns>
         public async Task GetTopRatedTvSeries(int pageNumber)
         {
             var tvs = new TvSeriesService();

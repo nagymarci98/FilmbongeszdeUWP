@@ -16,7 +16,7 @@
                               Source="{Binding SimiliarTvSeries}"
                               ItemsPath="Actors" />
         <CollectionViewSource x:Key="EpisodesViewSource"
-                              IsSourceGrouped="False"
+                              IsSourceGrouped="True"
                               Source="{Binding Episodes}"
                               ItemsPath="Actors" />
     </Page.Resources>

@@ -110,7 +110,6 @@
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MovieDetailsPageViewModel.cs" />
     <Compile Include="ViewModels\TvSeriesDetailsPageViewModel.cs" />
-    <Compile Include="ViewModels\TvSeriesEpisodeDetailsPageViewModel.cs" />
     <Compile Include="Views\ActorDetailsPage.xaml.cs">
       <DependentUpon>ActorDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -122,9 +121,6 @@
     </Compile>
     <Compile Include="Views\TvSeriesDetailsPage.xaml.cs">
       <DependentUpon>TvSeriesDetailsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TvSeriesEpisodeDetailsPage.xaml.cs">
-      <DependentUpon>TvSeriesEpisodeDetailsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -165,10 +161,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TvSeriesDetailsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TvSeriesEpisodeDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
